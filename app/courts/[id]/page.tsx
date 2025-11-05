@@ -2,6 +2,9 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import BookingForm from './BookingForm';
 
+// Disable caching so bookings update in real-time
+export const revalidate = 0;
+
 async function getCourt(id: string) {
   const { data: court, error } = await supabase
     .from('courts')

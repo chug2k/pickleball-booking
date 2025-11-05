@@ -51,15 +51,16 @@ INSERT INTO courts (name, description, image_url, hourly_rate) VALUES
 DO $$
 DECLARE
   court_record RECORD;
-  current_date DATE;
+  target_date DATE;
   slot_time TIME;
   day_offset INT;
+  hour INT;
 BEGIN
   -- For each court
   FOR court_record IN SELECT id FROM courts LOOP
     -- For next 7 days
     FOR day_offset IN 0..6 LOOP
-      current_date := CURRENT_DATE + day_offset;
+      target_date := CURRENT_DATE + day_offset;
 
       -- Create hourly slots from 8 AM to 8 PM
       FOR hour IN 8..19 LOOP
@@ -68,7 +69,7 @@ BEGIN
         INSERT INTO time_slots (court_id, date, start_time, end_time, is_booked)
         VALUES (
           court_record.id,
-          current_date,
+          target_date,
           slot_time,
           (slot_time + INTERVAL '1 hour')::TIME,
           FALSE

@@ -1,0 +1,21 @@
+# Supabase local development configuration
+
+project_id = "pickleball-booking"
+
+[api]
+enabled = true
+port = 54331
+schemas = ["public"]
+max_rows = 1000
+
+[db]
+port = 54332
+major_version = 15
+
+[studio]
+enabled = true
+port = 54333
+
+[auth]
+enabled = true
+site_url = "http://localhost:3001"
